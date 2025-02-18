@@ -1,11 +1,13 @@
 use std::sync::Mutex;
 
 use lazy_static::lazy_static;
+use log::info;
 use preferences::{AppInfo, Preferences, PreferencesMap};
 
 lazy_static! {
     pub(crate) static ref APP_PREFS: Mutex<Option<AppPrefs>> = Mutex::new(None);
 }
+static DEFAULT_PREF_KEY: &str = "default";
 
 pub(crate) struct AppPrefs {
     pub app_info: AppInfo,
@@ -13,9 +15,15 @@ pub(crate) struct AppPrefs {
 }
 impl AppPrefs {
     pub fn new(app_info: AppInfo) -> Self {
-        let cached_prefs = match PreferencesMap::<String>::load(&app_info, "default".to_string()) {
-            Ok(prefs) => prefs,
-            Err(_) => PreferencesMap::new(),
+        let cached_prefs = match PreferencesMap::<String>::load(&app_info, DEFAULT_PREF_KEY) {
+            Ok(prefs) => {
+                info!("Loaded preferences for: {:?}", app_info);
+                prefs
+            },
+            Err(_) => {
+                info!("Failed to load preferences, creating new preferences");
+                PreferencesMap::new()
+            },
         };
         AppPrefs {
             app_info,
@@ -30,7 +38,7 @@ impl AppPrefs {
         let mut prefs = self.cached_prefs.lock().unwrap();
         prefs.insert(key.clone(), value);
         prefs
-            .save(&self.app_info, key)
+            .save(&self.app_info, DEFAULT_PREF_KEY)
             .expect("Failed to save preferences");
     }
 }

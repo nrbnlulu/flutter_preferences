@@ -9,4 +9,6 @@ crate-type = ["cdylib", "staticlib"]
 [dependencies]
 flutter_rust_bridge = "=2.7.0"
 lazy_static = "1.5.0"
+log = "0.4.25"
 preferences = "2.0.0"
+simple_logger = "5.0.0"

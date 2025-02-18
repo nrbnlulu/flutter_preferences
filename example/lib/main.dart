@@ -5,12 +5,15 @@ Future<void> main() async {
   await flutter_preferences.RustLib.init();
   await flutter_preferences.init(appId: "my amazing app", author: "arthur the great");
   await flutter_preferences.setString(key: "foo", value: "bar");
+
   final val = (await flutter_preferences.getString(key: "foo"))!;
 
   runApp(MyApp(val));
 }
 
+
 class MyApp extends StatelessWidget {
+
   final String val;
   const MyApp(this.val, {super.key});
 
@@ -24,6 +27,7 @@ class MyApp extends StatelessWidget {
               'Result: `$val`'),
         ),
       ),
+
     );
   }
 }
