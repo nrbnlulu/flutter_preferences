@@ -1,3 +1,3 @@
 # flutter_preferences
 
-flutter wrapper around https://github.com/AndyBarron/preferences-rs
+flutter bindings for https://github.com/AndyBarron/preferences-rs
