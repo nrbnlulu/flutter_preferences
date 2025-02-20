@@ -6,6 +6,7 @@ use preferences::{AppInfo, Preferences, PreferencesMap};
 
 lazy_static! {
     pub(crate) static ref APP_PREFS: Mutex<Option<AppPrefs>> = Mutex::new(None);
+    pub(crate) static ref IS_INITIALIZED: Mutex<bool> = Mutex::new(false);
 }
 static DEFAULT_PREF_KEY: &str = "default";
 

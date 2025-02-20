@@ -1,10 +1,13 @@
 use log::info;
 use preferences::AppInfo;
 
-use crate::imp::{AppPrefs, APP_PREFS};
+use crate::imp::{AppPrefs, APP_PREFS, IS_INITIALIZED};
 use simple_logger::SimpleLogger;
 
 pub fn init(app_id: String, author: String) {
+    if IS_INITIALIZED.lock().unwrap().clone() {
+        return;
+    }
     SimpleLogger::new().init().unwrap();
     info!("Initializing flutter_preference");
     // Default utilities - feel free to customize
