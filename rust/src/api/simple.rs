@@ -5,8 +5,12 @@ use crate::imp::{AppPrefs, APP_PREFS, IS_INITIALIZED};
 use simple_logger::SimpleLogger;
 
 pub fn init(app_id: String, author: String) {
-    if IS_INITIALIZED.lock().unwrap().clone() {
-        return;
+    {
+        let mut is_initialized = IS_INITIALIZED.lock().unwrap();
+        if *is_initialized {
+            return;
+        }
+        *is_initialized = true;
     }
     SimpleLogger::new().init().unwrap();
     info!("Initializing flutter_preference");
@@ -21,6 +25,7 @@ pub fn init(app_id: String, author: String) {
     };
 
     APP_PREFS.lock().unwrap().replace(AppPrefs::new(app_info));
+    
 }
 
 pub fn set_string(key: String, value: String) -> () {
