@@ -23,12 +23,12 @@ pub fn init(app_id: String, author: String) {
         name: app_id,
         author,
     };
-
     APP_PREFS.lock().unwrap().replace(AppPrefs::new(app_info));
-    
+    info!("flutter_preference initialized");
 }
 
 pub fn set_string(key: String, value: String) -> () {
+    info!("Setting key: {} with value: {}", key, value);
     APP_PREFS
         .lock()
         .unwrap()
@@ -38,6 +38,7 @@ pub fn set_string(key: String, value: String) -> () {
 }
 
 pub fn get_string(key: String) -> Option<String> {
+    info!("Getting key: {}", key);
     APP_PREFS
         .lock()
         .unwrap()
