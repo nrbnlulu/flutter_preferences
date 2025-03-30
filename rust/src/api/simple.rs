@@ -1,9 +1,11 @@
+use flutter_rust_bridge::frb;
 use log::info;
 use preferences::AppInfo;
 
 use crate::imp::{AppPrefs, APP_PREFS, IS_INITIALIZED};
 use simple_logger::SimpleLogger;
 
+#[frb(init)]
 pub fn init(app_id: String, author: String) {
     {
         let mut is_initialized = IS_INITIALIZED.lock().unwrap();
