@@ -272,8 +272,10 @@ name = "flutter_preferences"
 version = "0.1.0"
 dependencies = [
  "flutter_rust_bridge",
+ "jni",
  "lazy_static",
  "log",
+ "ndk-context",
  "preferences",
  "simple_logger",
 ]
