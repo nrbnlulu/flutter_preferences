@@ -1,14 +1,14 @@
+import 'package:code_assets/code_assets.dart';
 import 'package:hooks/hooks.dart';
 import 'package:native_toolchain_rust/native_toolchain_rust.dart';
 
-void main(List<String> args) async {  
+void main(List<String> args) async {
   await build(args, (input, output) async {
-    await const RustBuilder(
-      assetName: 'flutter_preferences',
-      cratePath: 'rust',
-    ).run(
-      input: input,
-      output: output,
-    );
+    if (input.config.buildCodeAssets) {
+      await RustBuilder(
+        assetName: 'flutter_preferences',
+        cratePath: 'rust',
+      ).run(input: input, output: output);
+    }
   });
 }
